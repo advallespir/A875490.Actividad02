@@ -26,19 +26,15 @@ namespace A875490.Actividad02
 
             */
 
-            List<string> operarios = new List<string>();
-            List<int> oRoperarios = new List<int>();
-            List<int> colaDeOrdenes = new List<int>();
-            List<int> oRcolaDeOrdenes = new List<int>();
-            int[] auxiliar = new int[2];
-            string nombre;
-            int flag = 0;
-            int norden, operador;
-            int auxOperarios = -1;
-            double auxcolaDeOrdenes = -1;
-            bool nDeOrden;
+            //List<string> operarios = new List<string>();
+            Dictionary<int, int> operarios = new Dictionary<int, int>();
+            Queue<int> colaDeOrdenes = new Queue<int>();
+            int[] auxiliar = new int[2] { -1, -1 };
+            string aux = "0";
+            //bool nOperario;
             do
             {
+
                 Console.Clear();
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1) Añadir un operador");
@@ -53,30 +49,36 @@ namespace A875490.Actividad02
                     case "1":
                         do
                         {
-                            flag = 1;
-                            Console.WriteLine($"Por favor ingrese el operario Nª {operarios.Count}, deje vacio para salir: ");
-                            nombre = Console.ReadLine();
+                            int flags = 1;
+                            Console.WriteLine($"Por favor ingrese el numero del operario, deje vacio para salir: ");
+                            string nombre = Console.ReadLine();
                             if (nombre == "")
                             {
-                                flag = 0;
+                                flags = 0;
                                 break;
                             }
-
-                            for (int i = 0; i < operarios.Count; i++)
+                            bool nOperario = int.TryParse(nombre, out int operador);
+                            if (!nOperario)
                             {
-                                if (nombre == operarios[i])
-                                {
-                                    Console.WriteLine($"Ese operario se encuentra cargado, por favor seleccione otro. ");
-                                    flag = 0;
-
-
-                                }
+                                flags = 0;
+                                Console.WriteLine("Solo ingrese numeros por favor.");
                             }
 
-                            if (flag == 1)
+                            bool existeOp = operarios.ContainsKey(operador);
+
+                            if (existeOp)
                             {
-                                operarios.Add(nombre);
-                                oRoperarios.Add(0);
+                                flags = 0;
+                                Console.WriteLine($"Ese operario se encuentra cargado, por favor seleccione otro. ");
+                            }
+
+
+
+                            if (flags == 1)
+                            {
+                                operarios.Add(operador, 0);
+
+
                             }
 
 
@@ -87,75 +89,146 @@ namespace A875490.Actividad02
                     case "2":
                         do
                         {
-                            flag = 1;
-                            Console.WriteLine($"Por favor ingrese el numero de orden {colaDeOrdenes.Count}, deje vacio para salir: ");
+                            int flags = 1;
+                            Console.WriteLine($"Por favor ingrese el numero de orden, deje vacio para salir: ");
                             string orden = Console.ReadLine();
                             if (orden == "")
                             {
-                                flag = 0;
+                                flags = 0;
                                 break;
                             }
-                            nDeOrden = int.TryParse(orden, out norden);
+                            bool nDeOrden = int.TryParse(orden, out int norden);
                             if (!nDeOrden)
                             {
                                 Console.WriteLine($"Ingrese un numero por favor. ");
-                                flag = 0;
+                                flags = 0;
                             }
-                            if (nDeOrden)
-                                for (int i = 0; i < colaDeOrdenes.Count; i++)
-                                {
-                                    if (norden == colaDeOrdenes[i])
-                                    {
-                                        Console.WriteLine($"Ese operario se encuentra cargado, por favor seleccione otro. ");
-                                        flag = 0;
 
+                            bool existeNo = colaDeOrdenes.Contains(norden);
 
-                                    }
-                                }
-
-                            if (flag == 1)
+                            if (existeNo)
                             {
-                                colaDeOrdenes.Add(norden);
-                                oRcolaDeOrdenes.Add(0);
+                                flags = 0;
+                                Console.WriteLine($"Esta orden ya se encuentra cargada, por favor intente con otra. ");
+                            }
+
+                            if (flags == 1)
+                            {
+                                colaDeOrdenes.Enqueue(norden);
+
                             }
                         } while (true);
                         break;
 
 
                     case "3":
-                        flag = 0;
-                        if (operarios.Count == 0)
-                        {
-                            Console.WriteLine($"No hay ningun operador cargado, primero cargue uno por favor.");
-                            Console.ReadKey();
-                            break;
-                        }
                         do
                         {
-                            Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo: ");
-                            for (int i = 0; i < operarios.Count; i++)
+                            int flags = 0;
+                            if (operarios.Count == 0)
                             {
-                                Console.WriteLine($"{operarios[i]} nª {i}, y realizó {oRoperarios[i]} OdT hasta ahora. ");
+                                Console.WriteLine($"No hay ningun operador cargado, primero cargue uno por favor.");
+                                Console.ReadKey();
+                                break;
+                            }
+                            if (colaDeOrdenes.Count == 0)
+                            {
+                                Console.WriteLine($"No hay ninguna orden cargada, primero cargue una por favor.");
+                                Console.ReadKey();
+                                break;
+                            }
+                            bool existeOp = false;
+                            int operador;
+                            do
+                            {
+
+
+                                Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo: ");
+                                foreach (KeyValuePair<int, int> operario in operarios)
+                                {
+                                    Console.WriteLine($"Operario {operario.Key}, y realizó {operario.Value} OdT hasta ahora. ");
+                                }
+
+
+
+                                string numeroOperario = Console.ReadLine();
+                                bool nOperador = int.TryParse(numeroOperario, out operador);
+                                if (!nOperador)
+                                {
+                                    Console.WriteLine("Por favor ingrese solo numeros");
+                                    flags = 0;
+                                }
+
+                                existeOp = operarios.ContainsKey(operador);
+
+                                if (!existeOp)
+                                {
+                                    Console.WriteLine("No existe el operador seleccionado");
+                                }
+
+                            } while (existeOp == false);
+
+                            bool existeOdT = false;
+                            int nCola;
+
+
+                            do
+                            {
+                                Console.WriteLine($"Por favor elija una de estas ordenes de trabajo: ");
+
+                                foreach (var cola in colaDeOrdenes)
+                                {
+                                    Console.WriteLine($"{cola}");
+                                }
+
+                                string numeroOrden = Console.ReadLine();
+
+                                bool odt = int.TryParse(numeroOrden, out nCola);
+                                if (!odt)
+                                {
+                                    Console.WriteLine("Por favor ingrese solo numeros");
+                                    flags = 0;
+                                }
+
+                                existeOdT = colaDeOrdenes.Contains(nCola);
+                                if (!existeOdT)
+                                {
+                                    Console.WriteLine("No existe la orden seleccionada");
+
+                                }
+
+
+                            } while (existeOdT == false);
+
+
+
+
+
+
+                            if (auxiliar[0] == -1)
+                            {
+                                auxiliar[0] = operador;
+                                auxiliar[1] = colaDeOrdenes.Dequeue();
+
+                            }
+                            else if (auxiliar[0] >= 0)
+                            {                         
+                            
+                                operarios[auxiliar[0]] = 1;
+                                auxiliar[1] = colaDeOrdenes.Dequeue();
+                                auxiliar[0] = operador;
                             }
 
-                            string numeroOperador = Console.ReadLine();
-                            bool nOperador = int.TryParse(numeroOperador, out operador);
 
-                            if (operador <= operarios.Count)
-                            {
-                                flag = 1;
-                            }
 
-                        } while (flag == 0);
+                        } while (true);
+
+
+
+
 
                         //Cree dos listas extras para guardar los valores de oRcolaDeOrdenes si fue o no asignada, si el valor es 0, no fue asignada
                         //Hay dos variables auxiliares que solo guardan si hay una orden trabajandose y por quien. auxOperarios, auxcolaDeOrdenes
-                        if (auxcolaDeOrdenes == -1 && auxOperarios == -1)
-                        {
-                            operador = auxOperarios;
-
-
-                        }
 
 
 
@@ -167,10 +240,11 @@ namespace A875490.Actividad02
                         break;
                     case "5":
                         Console.WriteLine($"Tenemos {operarios.Count} operarios y {colaDeOrdenes.Count} ordenes de trabajo");
-                        for (int i = 0; i < operarios.Count; i++)
+                        foreach (KeyValuePair<int, int> operario in operarios)
                         {
-                            Console.WriteLine($"El operario {operarios[i]} realizó {oRoperarios[i]}. ");
+                            Console.WriteLine($"Estan cargados el operarios Nª{operario.Key} y realizó {operario.Value} oDt ");
                         }
+
                         Console.ReadKey();
                         break;
                     case "6":
