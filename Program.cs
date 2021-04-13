@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+
 
 namespace A875490.Actividad02
 {
     class Program
     {
+
+
+
         static void Main(string[] args)
         {
             /*
@@ -19,9 +24,115 @@ namespace A875490.Actividad02
                     o	D) Al terminar, reporte: cuántas órdenes cumplió cada operador, qué órdenes quedaron pendientes de asignar.
 
             */
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = MainMenu();
+            }
+        }
+        private static bool MainMenu()
+        {
+            List<string> operarios = new List<string>();
+            List<string> nOrden = new List<string>();
+            //Dictionary<int, string> operarios = new Dictionary<int, string>();
+            //Dictionary<int, string> nOrdenes = new Dictionary<int, string>();
+            //FiFo first in first out.
+            Queue<int> colaDeOrdenes = new Queue<int>();
+            int idO = 1, idOt = 1;
 
-            Console.WriteLine("Hello World!");
+            Console.Clear();
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1) Añadir un operador");
+            Console.WriteLine("2) Añadir una orden de trabajo");
+            Console.WriteLine("3) Asignar orden a operador");
+            Console.WriteLine("4) Ver reporte");
+            Console.WriteLine("5) Ver reporte");
+            Console.Write("\r\nSelect an option: ");
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    
+                    return true;
+                case "2":
+                    
+                    return true;
+                case "3":
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        class operario
+        { 
+        
+        
+        }
+
+
+
+
+
+
+
+        /*
+                    do
+                    {
+
+                        Console.WriteLine($"Por favor ingrese el operario {colaDeOrdenes.Count}, deje vacio para continuar: ");
+                        string nombre = Console.ReadLine();
+                        if (nombre == "")
+                        {
+                            break;
+                        }
+                        operarios.Add(nombre);
+                    } while (true);
+
+                    do
+                    {
+
+
+                        Console.WriteLine($"Por favor ingrese el numero de orden {nOrden.Count}, deje vacio para continuar: ");
+                        string orden = Console.ReadLine();
+                        if (orden == "")
+                        {
+                            break;
+                        }
+                        int norden;
+                        bool nDeOrden = int.TryParse(orden, out norden);
+                        if (!nDeOrden)
+                        {
+                            break;
+                        }
+                        colaDeOrdenes.Enqueue(norden);
+                    } while (true);
+
+        */
+
+
+
+
+                    /* Tire error si no existe
+
+                     try
+        {
+            Console.WriteLine("For key = \"tif\", value = {0}.",
+                openWith["tif"]);
+        }
+        catch (KeyNotFoundException)
+        {
+            Console.WriteLine("Key = \"tif\" is not found.");
+        }
+
+                     */
+
+                    //Console.WriteLine("Saliste");
+                    //Console.ReadKey();
+
+
+
+            }
 
         }
-    }
-}
+
