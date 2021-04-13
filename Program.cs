@@ -36,7 +36,7 @@ namespace A875490.Actividad02
             {
 
                 Console.Clear();
-                Console.WriteLine("Choose an option:");
+                Console.WriteLine("Elegí una opción:");
                 Console.WriteLine("1) Añadir un operador");
                 Console.WriteLine("2) Añadir una orden de trabajo");
                 Console.WriteLine("3) Asignar orden a operador");
@@ -238,14 +238,14 @@ namespace A875490.Actividad02
                     case "4":
 
 
-                        if (operarios.Count > 1)
+                        if (operarios.Count >= 1)
                         {
                             Console.WriteLine($"Tenemos {operarios.Count} operarios y {colaDeOrdenes.Count} ordenes de trabajo por realizar ");
                             foreach (KeyValuePair<int, int> operario in operarios)
                             {
                                 Console.WriteLine($"Estan cargados el operarios Nª{operario.Key} y realizó {operario.Value} oDt ");
                             }
-                            if (auxiliar[0] > 1)
+                            if (auxiliar[0] >= 1)
                             {
                                 Console.WriteLine($"El operario {auxiliar[0]} tiene la orden {auxiliar[1]} por terminar.");
                             }
@@ -258,7 +258,7 @@ namespace A875490.Actividad02
                             Console.ReadKey();
                         }
                         break;
-                        case "5":
+                    case "5":
                         return;
                     default:
                         break;
