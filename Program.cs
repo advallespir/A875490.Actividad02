@@ -41,8 +41,7 @@ namespace A875490.Actividad02
                 Console.WriteLine("2) Añadir una orden de trabajo");
                 Console.WriteLine("3) Asignar orden a operador");
                 Console.WriteLine("4) Ver reporte");
-                Console.WriteLine("5) Ver todo lo cargado");
-                Console.WriteLine("6) Salir");
+                Console.WriteLine("5) Salir");
                 Console.Write("\r\nSelect an option: ");
                 switch (Console.ReadLine())
                 {
@@ -139,19 +138,24 @@ namespace A875490.Actividad02
                             }
                             bool existeOp = false;
                             int operador;
+                            string numeroOperario;
                             do
                             {
 
 
-                                Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo: ");
+                                Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo, para dejar de cargar deje vacio ");
+
+
                                 foreach (KeyValuePair<int, int> operario in operarios)
                                 {
                                     Console.WriteLine($"Operario {operario.Key}, y realizó {operario.Value} OdT hasta ahora. ");
                                 }
 
+                                numeroOperario = Console.ReadLine();
 
 
-                                string numeroOperario = Console.ReadLine();
+
+
                                 bool nOperador = int.TryParse(numeroOperario, out operador);
                                 if (!nOperador)
                                 {
@@ -159,12 +163,14 @@ namespace A875490.Actividad02
                                     flags = 0;
                                 }
 
+
                                 existeOp = operarios.ContainsKey(operador);
 
                                 if (!existeOp)
                                 {
                                     Console.WriteLine("No existe el operador seleccionado");
                                 }
+
 
                             } while (existeOp == false);
 
@@ -212,9 +218,9 @@ namespace A875490.Actividad02
 
                             }
                             else if (auxiliar[0] >= 0)
-                            {                         
-                            
-                                operarios[auxiliar[0]] = 1;
+                            {
+
+                                operarios[auxiliar[0]] = operarios[auxiliar[0]] + 1;
                                 auxiliar[1] = colaDeOrdenes.Dequeue();
                                 auxiliar[0] = operador;
                             }
@@ -227,27 +233,32 @@ namespace A875490.Actividad02
 
 
 
-                        //Cree dos listas extras para guardar los valores de oRcolaDeOrdenes si fue o no asignada, si el valor es 0, no fue asignada
-                        //Hay dos variables auxiliares que solo guardan si hay una orden trabajandose y por quien. auxOperarios, auxcolaDeOrdenes
-
-
-
 
                         break;
                     case "4":
 
 
-                        break;
-                    case "5":
-                        Console.WriteLine($"Tenemos {operarios.Count} operarios y {colaDeOrdenes.Count} ordenes de trabajo");
-                        foreach (KeyValuePair<int, int> operario in operarios)
+                        if (operarios.Count > 1)
                         {
-                            Console.WriteLine($"Estan cargados el operarios Nª{operario.Key} y realizó {operario.Value} oDt ");
-                        }
+                            Console.WriteLine($"Tenemos {operarios.Count} operarios y {colaDeOrdenes.Count} ordenes de trabajo por realizar ");
+                            foreach (KeyValuePair<int, int> operario in operarios)
+                            {
+                                Console.WriteLine($"Estan cargados el operarios Nª{operario.Key} y realizó {operario.Value} oDt ");
+                            }
+                            if (auxiliar[0] > 1)
+                            {
+                                Console.WriteLine($"El operario {auxiliar[0]} tiene la orden {auxiliar[1]} por terminar.");
+                            }
+                            Console.ReadKey();
 
-                        Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No se asignaron operarios u ordenes de trabajo");
+                            Console.ReadKey();
+                        }
                         break;
-                    case "6":
+                        case "5":
                         return;
                     default:
                         break;
