@@ -139,19 +139,29 @@ namespace A875490.Actividad02
                             bool existeOp = false;
                             int operador;
                             string numeroOperario;
+
+
+                            Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo, para dejar de cargar deje vacio ");
+
+
+                            foreach (KeyValuePair<int, int> operario in operarios)
+                            {
+                                Console.WriteLine($"Operario {operario.Key}, y realizó {operario.Value} OdT hasta ahora. ");
+                            }
+
+                            numeroOperario = Console.ReadLine();
+
+                            if (numeroOperario == "")
+                            {
+                                break;
+                            }
+
+
                             do
                             {
 
 
-                                Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo, para dejar de cargar deje vacio ");
 
-
-                                foreach (KeyValuePair<int, int> operario in operarios)
-                                {
-                                    Console.WriteLine($"Operario {operario.Key}, y realizó {operario.Value} OdT hasta ahora. ");
-                                }
-
-                                numeroOperario = Console.ReadLine();
 
 
 
