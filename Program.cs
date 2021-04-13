@@ -29,9 +29,10 @@ namespace A875490.Actividad02
             List<int> oRoperarios = new List<int>();
             List<int> colaDeOrdenes = new List<int>();
             List<int> oRcolaDeOrdenes = new List<int>();
+            int[] auxiliar = new int[2];
             string nombre;
             int flag = 0;
-            int norden;
+            int norden, auxOperarios, auxcolaDeOrdenes;
             bool nDeOrden;
             do
             {
@@ -107,7 +108,7 @@ namespace A875490.Actividad02
 
                                     }
                                 }
-                  
+
                             if (flag == 1)
                             {
                                 colaDeOrdenes.Add(norden);
@@ -116,7 +117,7 @@ namespace A875490.Actividad02
                         } while (true);
                         break;
                     case "3":
-                        flag = 0; 
+                        flag = 0;
                         if (operarios.Count == 0)
                         {
                             Console.WriteLine($"No hay ningun operador cargado, primero cargue uno por favor.");
@@ -128,7 +129,7 @@ namespace A875490.Actividad02
                             Console.WriteLine($"Por favor elija uno de estos operarios para asignarles una orden trabajo: ");
                             for (int i = 0; i < operarios.Count; i++)
                             {
-                                Console.WriteLine($"{operarios[i]} nª {i}, realizó {oRoperarios[i]} OdT hasta ahora. ");
+                                Console.WriteLine($"{operarios[i]} nª {i}, y realizó {oRoperarios[i]} OdT hasta ahora. ");
                             }
 
                             string numeroOperador = Console.ReadLine();
@@ -141,7 +142,8 @@ namespace A875490.Actividad02
 
                         } while (flag == 0);
 
-
+                        //Cree dos listas extras para guardar los valores de oRcolaDeOrdenes si fue o no asignada, si el valor es 0, no fue asignada
+                        //Hay dos variables auxiliares que solo guardan si hay una orden trabajandose y por quien. auxOperarios, auxcolaDeOrdenes
 
 
 
