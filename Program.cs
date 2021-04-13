@@ -20,7 +20,8 @@ namespace A875490.Actividad02
                 * -	Una empresa de cable necesita una aplicación para encolar las órdenes de instalación recibidas y asignarlas a los técnicos que las realizarán. Para ello se le solicita una aplicación que permita:
                     o	A) El ingreso de una cantidad de operadores (identificados por un número de operador).
                     o	B) El ingreso de una cantidad de órdenes de trabajo (identificadas por un número de órden).
-                    o	C) La asignación de una orden a un operador. Para ello, el usuario indicará un número de operador y el sistema le asignará la próxima orden de trabajo no asignada, teniendo en cuenta el orden de carga del punto A), dando por terminada la asignación anterior en caso de existir una. Este proceso se repetirá tantas veces como indique el usuario.
+                    o	C) La asignación de una orden a un operador. Para ello, el usuario indicará un número de operador y el sistema le asignará la próxima orden de trabajo no asignada, teniendo en cuenta el orden de carga del punto A),
+                        dando por terminada la asignación anterior en caso de existir una. Este proceso se repetirá tantas veces como indique el usuario.
                     o	D) Al terminar, reporte: cuántas órdenes cumplió cada operador, qué órdenes quedaron pendientes de asignar.
 
             */
@@ -32,7 +33,9 @@ namespace A875490.Actividad02
             int[] auxiliar = new int[2];
             string nombre;
             int flag = 0;
-            int norden, auxOperarios, auxcolaDeOrdenes;
+            int norden, operador;
+            int auxOperarios = -1;
+            double auxcolaDeOrdenes = -1;
             bool nDeOrden;
             do
             {
@@ -79,8 +82,9 @@ namespace A875490.Actividad02
 
                         } while (true);
                         break;
-                    case "2":
 
+
+                    case "2":
                         do
                         {
                             flag = 1;
@@ -116,6 +120,8 @@ namespace A875490.Actividad02
                             }
                         } while (true);
                         break;
+
+
                     case "3":
                         flag = 0;
                         if (operarios.Count == 0)
@@ -133,7 +139,7 @@ namespace A875490.Actividad02
                             }
 
                             string numeroOperador = Console.ReadLine();
-                            bool nOperador = int.TryParse(numeroOperador, out int operador);
+                            bool nOperador = int.TryParse(numeroOperador, out operador);
 
                             if (operador <= operarios.Count)
                             {
@@ -144,13 +150,20 @@ namespace A875490.Actividad02
 
                         //Cree dos listas extras para guardar los valores de oRcolaDeOrdenes si fue o no asignada, si el valor es 0, no fue asignada
                         //Hay dos variables auxiliares que solo guardan si hay una orden trabajandose y por quien. auxOperarios, auxcolaDeOrdenes
+                        if (auxcolaDeOrdenes == -1 && auxOperarios == -1)
+                        {
+                            operador = auxOperarios;
 
+
+                        }
 
 
 
 
                         break;
                     case "4":
+
+
                         break;
                     case "5":
                         Console.WriteLine($"Tenemos {operarios.Count} operarios y {colaDeOrdenes.Count} ordenes de trabajo");
