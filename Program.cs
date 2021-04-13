@@ -74,20 +74,41 @@ namespace A875490.Actividad02
                         } while (true);
                         break;
                     case "3":
+                        int aux = -1;
                         if (operarios.Count == 0)
                         {
                             Console.WriteLine($"No hay ningun operador cargado, primero cargue uno por favor.");
                             Console.ReadKey();
                             break;
                         }
-                        Console.WriteLine($"Por favor elija uno de estos operadores para asignarles una orden trabajo: ");
-                        for (int i = 0; i < operarios.Count; i++)
+                        do
                         {
-                            Console.WriteLine($"{operarios[i]} realizó {oRoperarios[i]} OdT hasta ahora. ");
-                        }
 
 
+                            Console.WriteLine($"Por favor elija uno de estos operadores para asignarles una orden trabajo: ");
+                            for (int i = 0; i < operarios.Count; i++)
+                            {
+                                Console.WriteLine($"{operarios[i]} realizó {oRoperarios[i]} OdT hasta ahora. ");
+                            }
 
+                            string nombreOperador = Console.ReadLine();
+
+
+                            for (int i = 0; i < operarios.Count; i++)
+                            {
+                                if (nombreOperador == operarios[i])
+                                {
+                                    aux = i;
+                                }
+                            }
+
+                            if (aux <= 0)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("No hay ningun operador con ese nombre.");
+                            }
+
+                        } while (aux <= 0);
 
 
                         break;
@@ -113,6 +134,10 @@ namespace A875490.Actividad02
 
         }
 
+
+
     }
+
+
 }
 
