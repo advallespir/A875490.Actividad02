@@ -91,17 +91,23 @@ namespace A875490.Actividad02
                                 break;
                             }
                             nDeOrden = int.TryParse(orden, out norden);
-
-                            for (int i = 0; i < colaDeOrdenes.Count; i++)
+                            if (!nDeOrden)
                             {
-                                if (norden == colaDeOrdenes[i])
-                                {
-                                    Console.WriteLine($"Ese operario se encuentra cargado, por favor seleccione otro. ");
-                                    flag = 0;
-
-
-                                }
+                                Console.WriteLine($"Ingrese un numero por favor. ");
+                                flag = 0;
                             }
+                            if (nDeOrden)
+                                for (int i = 0; i < colaDeOrdenes.Count; i++)
+                                {
+                                    if (norden == colaDeOrdenes[i])
+                                    {
+                                        Console.WriteLine($"Ese operario se encuentra cargado, por favor seleccione otro. ");
+                                        flag = 0;
+
+
+                                    }
+                                }
+                  
                             if (flag == 1)
                             {
                                 colaDeOrdenes.Add(norden);
