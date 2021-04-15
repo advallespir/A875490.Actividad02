@@ -187,37 +187,7 @@ namespace A875490.Actividad02
                             bool existeOdT = false;
                             int nCola;
 
-
-                            do
-                            {
-                                Console.WriteLine($"Por favor elija una de estas ordenes de trabajo: ");
-
-                                foreach (var cola in colaDeOrdenes)
-                                {
-                                    Console.WriteLine($"{cola}");
-                                }
-
-                                string numeroOrden = Console.ReadLine();
-
-                                bool odt = int.TryParse(numeroOrden, out nCola);
-                                if (!odt)
-                                {
-                                    Console.WriteLine("Por favor ingrese solo numeros");
-                                    flags = 0;
-                                }
-
-                                existeOdT = colaDeOrdenes.Contains(nCola);
-                                if (!existeOdT)
-                                {
-                                    Console.WriteLine("No existe la orden seleccionada");
-
-                                }
-
-
-                            } while (existeOdT == false);
-
-
-
+                            
 
 
 
@@ -254,6 +224,10 @@ namespace A875490.Actividad02
                             foreach (KeyValuePair<int, int> operario in operarios)
                             {
                                 Console.WriteLine($"Estan cargados el operarios Nª{operario.Key} y realizó {operario.Value} oDt ");
+                            }
+                            foreach (var cola in colaDeOrdenes)
+                            {
+                                Console.WriteLine($"Quedaron las siguientes ordenes sin operar {cola}.");
                             }
                             if (auxiliar[0] >= 1)
                             {
